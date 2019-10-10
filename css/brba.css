@@ -1,0 +1,18 @@
+﻿body
+{
+    background-color: #000;
+    color: #fff;
+    font-size: 4em;
+    text-align: center
+}
+#brba
+{
+    font-size: 2em;
+    font-family: Arial
+}
+#brba a
+{
+    color: #114C38;
+    font-weight: bold;
+    text-decoration: none
+}
