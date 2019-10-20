@@ -1,0 +1,41 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "node": true,
+    "es6": true
+  },
+  "extends": [
+    "eslint:recommended"
+  ],
+  "rules": {
+    "max-len": [
+      1,
+      160,
+      2,
+      {
+        "ignoreComments": true
+      }
+    ],
+    "no-console": "warn",
+    "strict": [
+      "error",
+      "global"
+    ],
+    "curly": "warn",
+    "no-unused-vars": "warn"
+  },
+  "settings": {
+    "propWrapperFunctions": [
+      "forbidExtraProps"
+    ]
+    // The names of any functions used to wrap the
+    // propTypes object, e.g. `forbidExtraProps`.
+    // If this isn't set, any propTypes wrapped in
+    // a function will be skipped.
+  },
+  "parserOptions": {
+    "ecmaVersion": 2018
+  }
+}
