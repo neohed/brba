@@ -85,11 +85,11 @@ function createSystem() {
         new Vector(canvasRight + 50, canvasBottom / 1.67),
         300,
         2,
-        .005,
+        .009,
         .01,
         effects,
         12,
-        .2,
+        .1,
         render,
         renderCurve
     );

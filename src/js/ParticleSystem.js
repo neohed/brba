@@ -84,7 +84,7 @@ class ParticleSystem {
             }
         });
 
-        this.splines.forEach(spline => {
+        this.splines.sort((a, b) => b.age - a.age).forEach(spline => {
             if (spline.isAlive()) {
                 spline.simulate()
             } else if (splinesToCreate > 0 && this.liveCandidates.length >= spline.minPoints) {
