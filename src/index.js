@@ -88,7 +88,7 @@ function createSystem() {
         .009,
         .01,
         effects,
-        12,
+        10,
         .1,
         render,
         renderCurve

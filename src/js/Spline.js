@@ -28,20 +28,18 @@ class Spline {
         this.age = 0;
     };
 
-    topUp = (id) => this.points.push(id);
-
     simulate = () => {
-        if (this.points.length < this.minPoints) {
-            this.points.length = 0;
-        }
+        this.age += this.particleSystem.splineAgeRate;
 
-        this.age += this.particleSystem.splineAgeRate
+        if (this.points.length < this.minPoints || this.age >= 1) {
+            this.particleSystem.registerLife(this.points.length);
+            this.points.length = 0
+        }
     };
 
     render = (x, y) => {
         const splinePoints = [];
-        this.points.forEach(particleId => {
-            const particle = this.particleSystem.particles[particleId];
+        this.points.forEach(particle => {
             if (particle.isAlive()) {
                 const [px, py] = particle.getCoords();
                 splinePoints.push(px + x, py + y)
@@ -51,15 +49,6 @@ class Spline {
         this.doRender(splinePoints, this.age)
     };
 
-    unRegisterLife = (id) => {
-        const idIndex = this.points.indexOf(id);
-
-        if (idIndex > -1) {
-            this.points.splice(idIndex, 1)
-        }
-    };
-
-    isFull = () => this.points.length === this.maxPoints;
     isAlive = () => this.points.length > 0 && this.age < 1;
 }
 

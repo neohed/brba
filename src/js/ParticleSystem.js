@@ -52,7 +52,7 @@ class ParticleSystem {
         this.particlesResidue = 0;
         this.splinesResidue = 0;
         this.lastSimulation = Date.now();
-        this.liveCandidates = [];
+        this.liveCandidates = 0;
         this.splines = [];
 
         for (let i = 0; i < this.maxParticles; i++) {
@@ -84,11 +84,13 @@ class ParticleSystem {
             }
         });
 
-        this.splines.sort((a, b) => b.age - a.age).forEach(spline => {
+        this.splines.forEach(spline => {
             if (spline.isAlive()) {
                 spline.simulate()
-            } else if (splinesToCreate > 0 && this.liveCandidates.length >= spline.minPoints) {
-                spline.create(this.liveCandidates.splice(0, spline.maxPoints));
+            } else if (splinesToCreate > 0 && this.liveCandidates >= spline.minPoints) {
+                const newSplineParticles = this.particles.filter(particle => particle.isAlive()).sort((a, b) => a.age - b.age).slice(0, spline.maxPoints);
+                this.liveCandidates -= newSplineParticles.length;
+                spline.create(newSplineParticles);
                 splinesToCreate--
             }
         });
@@ -109,23 +111,15 @@ class ParticleSystem {
 
         const {x, y} = this.v_position;
 
-        this.splines.forEach(spline => {
+        this.splines.sort((a, b) => b.age - a.age).forEach(spline => {
             if (spline.isAlive()) {
                 spline.render(x, y)
             }
         });
     };
 
-    registerLife = (id) => this.liveCandidates.push(id);
-    unRegisterLife = (id) => {
-        const idIndex = this.liveCandidates.indexOf(id);
-
-        if (idIndex === -1) {
-            this.splines.forEach(spline => spline.unRegisterLife(idIndex))
-        } else {
-            this.liveCandidates.splice(idIndex, 1)
-        }
-    };
+    registerLife = (n) => this.liveCandidates += n;
+    unRegisterLife = (n) => this.liveCandidates -= n;
     getCoords = () => {
         const {x, y} = this.v_position;
 

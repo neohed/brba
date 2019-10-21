@@ -24,7 +24,7 @@ class Particle {
     create = () => {
         this.v_position = new Vector(0, 0);
         this.age = 0;
-        this.particleSystem.registerLife(this.id);
+        this.particleSystem.registerLife(1);
         this.mass = Math.random();
 
         const direction = this.particleSystem.direction;
@@ -46,7 +46,7 @@ class Particle {
         this.age += this.particleSystem.ageRate;
 
         if (this.age >= 1) {
-            this.particleSystem.unRegisterLife(this.id)
+            this.particleSystem.unRegisterLife(1)
         }
     };
 
