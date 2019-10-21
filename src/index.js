@@ -17,11 +17,13 @@ let particleSystem;
 const noColours = 30;
 let sineValues = [];
 const effects = [];
+const smokeColor = new ColorRGB('#E0D85C');
+const backgroundColor = new ColorRGB('#1B2F15');
 
 function createEffects() {
     sineValues = generateSineWaveValues(2);
-    effects.push(new Wind(sineValues, new Vector(1, 0), 90, 1));
-    effects.push(new Wind(sineValues, new Vector(-.3, -.3), 70, 0.6, 30));
+    //effects.push(new Wind(sineValues, new Vector(1, 0), 90, 1));
+    //effects.push(new Wind(sineValues, new Vector(-.3, -.3), 70, 0.6, 30));
 }
 
 const smokeParticleName = 'cSmokeParticle';
@@ -29,8 +31,6 @@ const smokeParticleName = 'cSmokeParticle';
 function createSmokeParticles(radius) {
     const x = radius;
     const y = radius;
-    const smokeColor = new ColorRGB('#E0D85C');
-    const backgroundColor = new ColorRGB('#1B2F15');
     const backgroundColorRatioStart = .65;
     const backgroundColorRatioStop = .95;
     const innerRadius = 0;
@@ -64,7 +64,7 @@ function render(x, y, age) {
     );
 }
 
-function renderCurve(points) {
+function renderCurve(points, age) {
     ctx.beginPath();
     const splines = curve(ctx, points, 0.5, 25, true);
     ctx.moveTo(splines[0], splines[1]);
@@ -73,21 +73,23 @@ function renderCurve(points) {
         const y = Math.floor(splines[i + 1]);
         ctx.lineTo(x, y)
     }
-    ctx.lineWidth = 3;
-    ctx.strokeStyle = '#e0d85c';
+    ctx.lineWidth = 6;
+    ctx.strokeStyle = smokeColor.interpolate(backgroundColor, age).toHex();
     ctx.stroke()
 }
 
 function createSystem() {
     particleSystem = new ParticleSystem(
-        270,
-        .25,
-        new Vector(canvasRight / 2, canvasBottom),
-        200,
-        4,
-        .02,
+        195,
+        .15,
+        new Vector(canvasRight + 50, canvasBottom / 1.67),
+        300,
+        2,
+        .005,
+        .01,
         effects,
         12,
+        .2,
         render,
         renderCurve
     );

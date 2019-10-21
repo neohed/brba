@@ -1,47 +1,66 @@
 import {Particle} from './Particle';
+import {Spline} from "./Spline";
 import {toRadians} from "./utility";
 import {Vector} from "./Vector";
-import {randomInRangeInt} from './utility'
-
+//todo Need to use pointers instead of id's!
 class ParticleSystem {
     particles;
     maxParticles;
     direction;
     dispersion;
     ageRate;
+    splineAgeRate;
     effects;
     splines;
     maxSplines;
-
-    // Vectors
     v_position;
 
     // Creation manipulation
     particlePerSecond;
-    residue;
+    splinesPerSecond;
+    particlesResidue;
+    splinesResidue;
     lastSimulation;
     liveCandidates;
-    renderCurve;
 
-    constructor(direction, dispersion, v_position, maxParticles, particlePerSecond, ageRate, effects, maxSplines, render, renderCurve) {
+    constructor(
+        direction,
+        dispersion,
+        v_position,
+        maxParticles,
+        particlePerSecond,
+        ageRate,
+        splineAgeRate,
+        effects,
+        maxSplines,
+        splinesPerSecond,
+        render,
+        renderCurve
+    ) {
         this.direction = toRadians(direction);
         this.dispersion = dispersion;
         this.v_position = v_position;
         this.maxParticles = maxParticles;
         this.particlePerSecond = particlePerSecond;
         this.ageRate = ageRate;
+        this.splineAgeRate = splineAgeRate;
         this.effects = effects;
         this.maxSplines = maxSplines;
-        this.renderCurve = renderCurve;
+        this.splinesPerSecond = splinesPerSecond;
 
         this.particles = [];
-        this.residue = 0;
+        this.particlesResidue = 0;
+        this.splinesResidue = 0;
         this.lastSimulation = Date.now();
-        this.liveCandidates = new Set();
+        this.liveCandidates = [];
         this.splines = [];
 
         for (let i = 0; i < this.maxParticles; i++) {
             this.particles.push(new Particle(i, this, render));
+        }
+
+        for (let i = 0; i < this.maxSplines; i++) {
+            this.splines.push(new Spline(i, this, renderCurve));
         }
     }
 
@@ -49,8 +68,12 @@ class ParticleSystem {
         const now = Date.now();
         const secondsElapsed = (now - this.lastSimulation) / 1000;
         this.lastSimulation = now;
-        let particlesToCreate = Math.floor(this.particlePerSecond * secondsElapsed + this.residue);
-        this.residue = (this.particlePerSecond + this.residue) - particlesToCreate;
+
+        let particlesToCreate = Math.floor(this.particlePerSecond * secondsElapsed + this.particlesResidue);
+        this.particlesResidue = (this.particlePerSecond + this.particlesResidue) - particlesToCreate;
+
+        let splinesToCreate = Math.floor(this.splinesPerSecond * secondsElapsed + this.splinesResidue);
+        this.splinesResidue = (this.splinesPerSecond + this.splinesResidue) - splinesToCreate;
 
         this.particles.forEach(particle => {
             if (particle.isAlive()) {
@@ -59,14 +82,23 @@ class ParticleSystem {
                 particle.create();
                 particlesToCreate--;
             }
-        })
+        });
+
+        this.splines.forEach(spline => {
+            if (spline.isAlive()) {
+                spline.simulate()
+            } else if (splinesToCreate > 0 && this.liveCandidates.length >= spline.minPoints) {
+                spline.create(this.liveCandidates.splice(0, spline.maxPoints));
+                splinesToCreate--
+            }
+        });
     };
 
     render = () => {
         const v_sum_effects = new Vector(0, 0);
-        this.effects.forEach(effect => {
+        this.effects.forEach(effect =>
             v_sum_effects.addTo(effect.getVector())
-        });
+        );
 
         this.particles
             .forEach(particle => {
@@ -78,35 +110,22 @@ class ParticleSystem {
         const {x, y} = this.v_position;
 
         this.splines.forEach(spline => {
-            const splinePoints = [];
-
-            spline.forEach(particleId => {
-                const particle = this.particles[particleId];
-                if (particle.isAlive()) {
-                    const [px, py] = particle.getCoords();
-                    splinePoints.push(px + x, py + y)
-                }
-            });
-
-            this.renderCurve(splinePoints)
+            if (spline.isAlive()) {
+                spline.render(x, y)
+            }
         });
     };
 
-    registerLife = (id) => {
-        this.liveCandidates.add(id);
+    registerLife = (id) => this.liveCandidates.push(id);
+    unRegisterLife = (id) => {
+        const idIndex = this.liveCandidates.indexOf(id);
 
-        if (this.splines.length < this.maxSplines) {
-            const splineSize = randomInRangeInt(4, 8);
-
-            if (this.liveCandidates.size >= splineSize) {
-                this.splines.push([...this.liveCandidates]);
-                this.liveCandidates.clear();
-            }
+        if (idIndex === -1) {
+            this.splines.forEach(spline => spline.unRegisterLife(idIndex))
+        } else {
+            this.liveCandidates.splice(idIndex, 1)
         }
     };
-
-    unRegisterLife = (id) => this.liveCandidates.delete(id);
-
     getCoords = () => {
         const {x, y} = this.v_position;
 

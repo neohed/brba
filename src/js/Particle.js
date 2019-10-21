@@ -27,7 +27,7 @@ class Particle {
         this.particleSystem.registerLife(this.id);
         this.mass = Math.random();
 
-        const direction = toRadians(270);
+        const direction = this.particleSystem.direction;
         const dispersion = 0.25;
         const randomAngle = (1 - (Math.random() * 2)) * Math.PI;
         const angle = randomAngle * dispersion + direction;
