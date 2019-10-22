@@ -2,7 +2,7 @@ import {Particle} from './Particle';
 import {Spline} from "./Spline";
 import {toRadians} from "./utility";
 import {Vector} from "./Vector";
-//todo Need to use pointers instead of id's!
+
 class ParticleSystem {
     particles;
     maxParticles;
@@ -88,7 +88,11 @@ class ParticleSystem {
             if (spline.isAlive()) {
                 spline.simulate()
             } else if (splinesToCreate > 0 && this.liveCandidates >= spline.minPoints) {
-                const newSplineParticles = this.particles.filter(particle => particle.isAlive()).sort((a, b) => a.age - b.age).slice(0, spline.maxPoints);
+                const newSplineParticles = this.particles
+                    .filter(particle => particle.isAlive())
+                    .sort((a, b) => a.age - b.age)
+                    .slice(0, Math.floor(spline.maxPoints * Math.random() + 2));
+
                 this.liveCandidates -= newSplineParticles.length;
                 spline.create(newSplineParticles);
                 splinesToCreate--

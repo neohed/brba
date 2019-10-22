@@ -25,20 +25,22 @@
  */
 function curve(ctx, points, tension, numOfSeg, close) {
 
-    if (typeof points === "undefined" || points.length < 2) return new Float32Array(0);
+    if (typeof points === "undefined" || points.length < 2) {
+        return new Float32Array(0)
+    }
 
     // options or defaults
     tension = typeof tension === "number" ? tension : 0.5;
     numOfSeg = typeof numOfSeg === "number" ? numOfSeg : 25;
 
-    var pts,															// for cloning point array
+    let pts,															// for cloning point array
         i = 1,
         l = points.length,
         rPos = 0,
-        rLen = (l - 2) * numOfSeg + 2 + (close ? 2 * numOfSeg : 0),
-        res = new Float32Array(rLen),
-        cache = new Float32Array((numOfSeg + 2) << 2),
         cachePtr = 4;
+    const rLen = (l - 2) * numOfSeg + 2 + (close ? 2 * numOfSeg : 0),
+        res = new Float32Array(rLen),
+        cache = new Float32Array((numOfSeg + 2) << 2);
 
     pts = points.slice(0);
 
@@ -57,7 +59,7 @@ function curve(ctx, points, tension, numOfSeg, close) {
 
     for (; i < numOfSeg; i++) {
 
-        var st = i / numOfSeg,
+        const st = i / numOfSeg,
             st2 = st * st,
             st3 = st2 * st,
             st23 = st3 * 2,
@@ -85,9 +87,9 @@ function curve(ctx, points, tension, numOfSeg, close) {
 
     function parse(pts, cache, l, tension) {
 
-        for (var i = 2, t; i < l; i += 2) {
+        for (let i = 2, t; i < l; i += 2) {
 
-            var pt1 = pts[i],
+            let pt1 = pts[i],
                 pt2 = pts[i + 1],
                 pt3 = pts[i + 2],
                 pt4 = pts[i + 3],
@@ -117,13 +119,12 @@ function curve(ctx, points, tension, numOfSeg, close) {
     res[rPos] = points[l];
 
     // add lines to path
-    for (i = 0, l = res.length; i < l; i += 2)
-        ctx.lineTo(res[i], res[i + 1]);
+    for (i = 0, l = res.length; i < l; i += 2) {
+        ctx.lineTo(res[i], res[i + 1])
+    }
 
     return res
 }
-
-// if (typeof exports !== "undefined") exports.curve = curve;
 
 export {
     curve

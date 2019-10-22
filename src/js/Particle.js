@@ -1,5 +1,5 @@
 import {Vector} from './Vector';
-import {randomInRangeFloat, toRadians} from "./utility";
+import {randomInRangeFloat} from "./utility";
 
 class Particle {
     // Vectors

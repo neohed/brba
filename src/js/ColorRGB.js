@@ -31,7 +31,6 @@ class ColorRGB {
         this.a + (endColor.a - this.a) * ratio
     );
 
-    brightness = () => .2126 * this.r + .7152 * this.g + .0722 * this.b;
     toHex = () => '#' + ('00000' + (this.b | (this.g << 8) | (this.r << 16)).toString(16)).slice(-6);
 }
 

@@ -1,9 +1,3 @@
-
-// Need a smarter algorithm for splines. They shouldn't pop in and out of existence as particles
-// do. They should get "topped up" as they lose particles.
-
-// Create "vector shadows" or offsets with some random offset-vector. Interpolate size and color.
-
 class Spline {
     id;
     particleSystem;

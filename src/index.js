@@ -1,4 +1,3 @@
-import {twoPi} from './js/constants'
 import {Vector} from './js/Vector';
 import {ParticleSystem} from "./js/ParticleSystem";
 import {ColorRGB} from "./js/ColorRGB";
@@ -14,66 +13,28 @@ const canvasLeft = 0,
     canvasRight = 1000,
     canvasBottom = 600;
 let particleSystem;
-const noColours = 30;
-let sineValues = [];
-const effects = [];
 const smokeColor = new ColorRGB('#E0D85C');
 const backgroundColor = new ColorRGB('#1B2F15');
 
 function createEffects() {
-    sineValues = generateSineWaveValues(2);
-    //effects.push(new Wind(sineValues, new Vector(1, 0), 90, 1));
-    //effects.push(new Wind(sineValues, new Vector(-.3, -.3), 70, 0.6, 30));
-}
-
-const smokeParticleName = 'cSmokeParticle';
-
-function createSmokeParticles(radius) {
-    const x = radius;
-    const y = radius;
-    const backgroundColorRatioStart = .65;
-    const backgroundColorRatioStop = .95;
-    const innerRadius = 0;
-
-    for (let i = 0; i < noColours; i++) {
-        const color = smokeColor.interpolate(backgroundColor, i / noColours * backgroundColorRatioStart);
-        const particleName = smokeParticleName + i;
-
-        c[particleName] = document.createElement('canvas');
-        c[particleName].width = x * 2;
-        c[particleName].height = y * 2;
-
-        const ctxSmokeParticle = c[particleName].getContext('2d');
-        const gradient = ctxSmokeParticle.createRadialGradient(x, y, innerRadius, x, y, radius);
-        gradient.addColorStop(0, color.toHex());
-        const newBackground = color.interpolate(backgroundColor, backgroundColorRatioStop);
-        gradient.addColorStop(1, newBackground.toHex()); // background color
-
-        ctxSmokeParticle.arc(x, y, radius, 0, twoPi);
-        ctxSmokeParticle.fillStyle = gradient;
-        ctxSmokeParticle.fill();
-    }
-}
-
-function render(x, y, age) {
-    const particleIndex = Math.floor(noColours * age);
-    ctx.drawImage(
-        c[smokeParticleName + particleIndex],
-        Math.floor(x),
-        Math.floor(y)
-    );
+    const sineValues = generateSineWaveValues(2);
+    return [
+        new Wind(sineValues, new Vector(-.2, -1), 70, .33),
+        new Wind(sineValues, new Vector(-1, -.5), 30, .15, 30),
+        new Wind(sineValues, new Vector(-1, 1), 15, .01, 45)
+    ]
 }
 
 function renderCurve(points, age) {
     ctx.beginPath();
-    const splines = curve(ctx, points, 0.5, 25, true);
+    const splines = curve(ctx, points, 1, 30, true);
     ctx.moveTo(splines[0], splines[1]);
-    for (let i = 2; i < splines.length; i += 2) {
+    for (let i = 2, length = splines.length; i < length; i += 2) {
         const x = Math.floor(splines[i]);
         const y = Math.floor(splines[i + 1]);
         ctx.lineTo(x, y)
     }
-    ctx.lineWidth = 6;
+    ctx.lineWidth = Math.floor(18 * age) + 6;
     ctx.strokeStyle = smokeColor.interpolate(backgroundColor, age).toHex();
     ctx.stroke()
 }
@@ -81,27 +42,19 @@ function renderCurve(points, age) {
 function createSystem() {
     particleSystem = new ParticleSystem(
         195,
-        .15,
-        new Vector(canvasRight + 50, canvasBottom / 1.67),
-        300,
+        .3,
+        new Vector(canvasRight + 70, canvasBottom * .67),
+        250,
         2,
         .009,
         .01,
-        effects,
-        10,
-        .1,
-        render,
+        createEffects(),
+        12,
+        .14,
+        () => null, // /dev/null the particles, they're only "scaffolding"
         renderCurve
     );
 }
-
-/*
-function outOfBounds(v_position) {
-    const {x, y} = v_position;
-
-    return x < 0 || y < 0 || x > canvasRight || y > canvasBottom
-}
-*/
 
 function animate() {
     window.requestAnimationFrame(animate);
@@ -113,10 +66,8 @@ function animate() {
 }
 
 function init() {
-    createSmokeParticles(8);
-    createEffects();
     createSystem();
-    animate();
+    window.requestAnimationFrame(animate);
 }
 
 if (window.addEventListener) {

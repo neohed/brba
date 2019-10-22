@@ -14,9 +14,8 @@ TODO
 * Add uglification etc
 * move into a worker thread / webworker
 * Create different systems to darken corners in shadow as well as to generate smoke.
-* See what can be done with particles - make them larger and darker.
-* For picking new points for splines consider a hybrid algorith where we pick the top n%
-  oldest particles then do a proximity search.
+* Make canvas fullscreen - scale params accordingly.
+
 
 * https://upload.wikimedia.org/wikipedia/en/6/61/Breaking_Bad_title_card.png
 * https://css-tricks.com/fun-with-blurred-text/
