@@ -14,8 +14,7 @@ class Vector {
     addTo = (other) => {
         this.x += other.x;
         this.y += other.y;
-    };
-    length = () => Math.sqrt(this.x * this.x + this.y * this.y);
+    }
 }
 
 export {

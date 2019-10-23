@@ -6,14 +6,14 @@ import {Wind} from "./js/Wind";
 import {curve} from './js/lib/curve_func'
 
 // Globals
+const textInput = document.getElementById('textInput');
 const c = document.getElementById('surface');
 const ctx = c.getContext('2d');
-const canvasLeft = 0,
-    canvasTop = 0,
-    canvasRight = 1000,
-    canvasBottom = 600;
+const canvasLeft = 0, canvasTop = 0;
+let canvasRight, canvasBottom;
+
 let particleSystem;
-const smokeColor = new ColorRGB('#E0D85C');
+const smokeColor = new ColorRGB('#E0D85C'); //F2E98A
 const backgroundColor = new ColorRGB('#1B2F15');
 
 function createEffects() {
@@ -34,7 +34,7 @@ function renderCurve(points, age) {
         const y = Math.floor(splines[i + 1]);
         ctx.lineTo(x, y)
     }
-    ctx.lineWidth = Math.floor(18 * age) + 6;
+    ctx.lineWidth = Math.floor(12 * age) + 6;
     ctx.strokeStyle = smokeColor.interpolate(backgroundColor, age).toHex();
     ctx.stroke()
 }
@@ -44,12 +44,12 @@ function createSystem() {
         195,
         .3,
         new Vector(canvasRight + 70, canvasBottom * .67),
-        250,
+        260,
         2,
         .009,
         .01,
         createEffects(),
-        12,
+        14,
         .14,
         () => null, // /dev/null the particles, they're only "scaffolding"
         renderCurve
@@ -65,13 +65,31 @@ function animate() {
     particleSystem.render();
 }
 
-function init() {
-    createSystem();
-    window.requestAnimationFrame(animate);
+function getWindowSize() {
+    const {innerWidth, innerHeight} = window;
+
+    return [innerWidth, innerHeight]
 }
 
-if (window.addEventListener) {
-    window.addEventListener('load', init)
-} else {
-    window.attachEvent('onload', init)
+function resizeCanvas() {
+    const [width, height] = getWindowSize();
+    c.width = width;
+    c.height = height;
+    [canvasRight, canvasBottom] = getWindowSize();
+    textInput.style.left = (canvasRight - 180) / 2 + 'px';
+    textInput.style.top = canvasBottom - 32 + 'px'
 }
+
+function onInit() {
+    resizeCanvas();
+    createSystem();
+    window.requestAnimationFrame(animate)
+}
+
+function onResize() {
+    resizeCanvas();
+    createSystem()
+}
+
+window.addEventListener('load', onInit);
+window.addEventListener('resize', onResize);

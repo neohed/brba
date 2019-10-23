@@ -5,18 +5,57 @@
     <title>BrBa Demo</title>
     <style>
         body {
-            padding: 80px 0 0 80px;
-            background-color: black;
+            font-family: sans-serif;
+            padding: 0;
+            margin: 0;
+            border: none;
+            overflow: hidden;
+            background-color: black
         }
         #surface {
-            padding: 10px;
             background-color: #1B2F15;
-            filter: blur(18px);
+            filter: blur(18px)
+        }
+        #app {
+            position: absolute;
+            width: 180px;
+            z-index: 101;
+        }
+        #textInput {
+            position: absolute;
+            width: 180px;
+            z-index: 101;
+            background-color: black;
+            border: none;
+            outline-color: #E0D85C;
+            color: #E0D85C
+        }
+        .element {
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: white;
+            border: 1px solid white;
+            width: 80px;
+        }
+        .element, h1, h5 {
+            text-align: center;
+            margin: 0;
+        }
+        .align-left {
+            text-align: left;
         }
     </style>
 </head>
 <body>
     <div id="app"></div>
-    <canvas id="surface" width="1000" height="600"></canvas>
+    <input id="textInput" type="text" />
+    <canvas id="surface"></canvas>
+<div class="element">
+    <h5 class="align-left">1</h5>
+    <h1>H</h1>
+    <h5>Hydrogen</h5>
+    <h5>1.00794</h5>
+</div>
 </body>
 </html>
