@@ -1,17 +1,50 @@
-﻿body
-{
-    background-color: #000;
-    color: #fff;
-    font-size: 4em;
-    text-align: center
+﻿body {
+    font-family: sans-serif;
+    padding: 0;
+    margin: 0;
+    border: none;
+    overflow: hidden;
+    background-color: black
 }
-#brba
-{
+#surface {
+    background-color: #1B2F15;
+    filter: blur(18px)
+}
+#app {
+    position: absolute;
+    width: 180px;
+    z-index: 101;
+}
+#textInput {
+    position: absolute;
+    width: 180px;
+    z-index: 101;
+    background-color: black;
+    border: none;
+    outline-color: #E0D85C;
+    color: #E0D85C
+}
+#output {
+    position: absolute;
+    z-index: 101;
+    color: white;
     font-size: 2em;
 }
-#brba a
-{
-    color: #114C38;
-    font-weight: bold;
-    text-decoration: none
+.element {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: white;
+    border: 1px solid white;
+    width: 80px;
+}
+.element, h1 {
+    font-weight: bolder;
+}
+.element, h1, h5, h6 {
+    text-align: center;
+    margin: 0;
+}
+.align-left {
+    text-align: left;
 }

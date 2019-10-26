@@ -3,59 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>BrBa Demo</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            padding: 0;
-            margin: 0;
-            border: none;
-            overflow: hidden;
-            background-color: black
-        }
-        #surface {
-            background-color: #1B2F15;
-            filter: blur(18px)
-        }
-        #app {
-            position: absolute;
-            width: 180px;
-            z-index: 101;
-        }
-        #textInput {
-            position: absolute;
-            width: 180px;
-            z-index: 101;
-            background-color: black;
-            border: none;
-            outline-color: #E0D85C;
-            color: #E0D85C
-        }
-        .element {
-            position: absolute;
-            top: 0;
-            left: 0;
-            color: white;
-            border: 1px solid white;
-            width: 80px;
-        }
-        .element, h1, h5 {
-            text-align: center;
-            margin: 0;
-        }
-        .align-left {
-            text-align: left;
-        }
-    </style>
+    <script
+            src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsrender/1.0.5/jsrender.min.js"></script>
 </head>
 <body>
-    <div id="app"></div>
+    <div id="output"></div>
     <input id="textInput" type="text" />
     <canvas id="surface"></canvas>
-<div class="element">
-    <h5 class="align-left">1</h5>
-    <h1>H</h1>
-    <h5>Hydrogen</h5>
-    <h5>1.00794</h5>
-</div>
+
+    <script id="elementTemplate" type="text/x-jQuery-tmpl">
+        <div class="element">
+            <h6 class="align-left">{{:atomicNumber}}</h6>
+            <h1>{{:chemicalSymbol}}</h1>
+            <h6>{{:commonName}}</h6>
+            <h6>{{:atomicWeight}}</h6>
+        </div>
+    </script>
 </body>
 </html>

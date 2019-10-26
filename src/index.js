@@ -4,9 +4,13 @@ import {ColorRGB} from "./js/ColorRGB";
 import {generateSineWaveValues} from './js/utility'
 import {Wind} from "./js/Wind";
 import {curve} from './js/lib/curve_func'
+import {breakBad} from './js/brba'
+import './css/brba.css'
 
 // Globals
+const $ = window.$;
 const textInput = document.getElementById('textInput');
+const output = document.getElementById('output');
 const c = document.getElementById('surface');
 const ctx = c.getContext('2d');
 const canvasLeft = 0, canvasTop = 0;
@@ -53,7 +57,7 @@ function createSystem() {
         .14,
         () => null, // /dev/null the particles, they're only "scaffolding"
         renderCurve
-    );
+    )
 }
 
 function animate() {
@@ -62,7 +66,7 @@ function animate() {
     ctx.clearRect(canvasLeft, canvasTop, canvasRight - canvasLeft, canvasBottom - canvasTop);
 
     particleSystem.simulate();
-    particleSystem.render();
+    particleSystem.render()
 }
 
 function getWindowSize() {
@@ -76,14 +80,10 @@ function resizeCanvas() {
     c.width = width;
     c.height = height;
     [canvasRight, canvasBottom] = getWindowSize();
+    output.style.left = (canvasRight - 180) / 2 + 'px';
+    output.style.top = canvasBottom / 2 - 8 + 'px';
     textInput.style.left = (canvasRight - 180) / 2 + 'px';
     textInput.style.top = canvasBottom - 32 + 'px'
-}
-
-function onInit() {
-    resizeCanvas();
-    createSystem();
-    window.requestAnimationFrame(animate)
 }
 
 function onResize() {
@@ -91,5 +91,30 @@ function onResize() {
     createSystem()
 }
 
-window.addEventListener('load', onInit);
+function init() {
+    resizeCanvas();
+    createSystem();
+    window.requestAnimationFrame(animate)
+}
+
 window.addEventListener('resize', onResize);
+
+$(function() {
+    init();
+    const template = $.templates("#elementTemplate");
+
+    $('#textInput').keyup(function({target}) {
+        $('#output').html('');
+        const input = target.value;
+        const parts = breakBad(input);
+
+        parts.map(part => {
+            if (typeof part === 'string') {
+                $('#output').appendTo(part)
+            } else {
+                const htmlOutput = template.render(part);
+                $('#output').appendTo(htmlOutput)
+            }
+        });
+    })
+});
