@@ -98,27 +98,4 @@ function init() {
 }
 
 window.addEventListener('resize', onResize);
-
-$(function() {
-    init();
-    //const template = $.templates("#elementTemplate");
-
-    $('#textInput').keyup(function({target}) {
-        //$('#output').html('');
-        const input = target.value;
-        const parts = bb.breakBad(input);
-
-        parts.map(part => {
-            if (typeof part === 'string') {
-                $('#output').appendTo('<span>' + part + '</span>');
-            } else {
-                /*
-                const htmlOutput = template.render(part);
-                $('#output').appendTo(htmlOutput)
-
-                 */
-                //console.log(part)
-            }
-        });
-    })
-});
+init();
