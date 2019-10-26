@@ -77,9 +77,8 @@ function getWindowSize() {
 
 function resizeCanvas() {
     const [width, height] = getWindowSize();
-    c.width = width;
-    c.height = height;
-    [canvasRight, canvasBottom] = getWindowSize();
+    canvasRight = c.width = width;
+    canvasBottom = c.height = height;
     output.style.left = (canvasRight - 180) / 2 + 'px';
     output.style.top = canvasBottom / 2 - 8 + 'px';
     textInput.style.left = (canvasRight - 180) / 2 + 'px';
