@@ -4,7 +4,7 @@ import {ColorRGB} from "./js/ColorRGB";
 import {generateSineWaveValues} from './js/utility'
 import {Wind} from "./js/Wind";
 import {curve} from './js/lib/curve_func'
-import {breakBad} from './js/brba'
+import {BrBa} from './js/BrBa'
 import './css/brba.css'
 
 // Globals
@@ -15,6 +15,7 @@ const c = document.getElementById('surface');
 const ctx = c.getContext('2d');
 const canvasLeft = 0, canvasTop = 0;
 let canvasRight, canvasBottom;
+const bb = new BrBa();
 
 let particleSystem;
 const smokeColor = new ColorRGB('#E0D85C'); //F2E98A
@@ -101,19 +102,23 @@ window.addEventListener('resize', onResize);
 
 $(function() {
     init();
-    const template = $.templates("#elementTemplate");
+    //const template = $.templates("#elementTemplate");
 
     $('#textInput').keyup(function({target}) {
-        $('#output').html('');
+        //$('#output').html('');
         const input = target.value;
-        const parts = breakBad(input);
+        const parts = bb.breakBad(input);
 
         parts.map(part => {
             if (typeof part === 'string') {
-                $('#output').appendTo(part)
+                $('#output').appendTo('<span>' + part + '</span>');
             } else {
+                /*
                 const htmlOutput = template.render(part);
                 $('#output').appendTo(htmlOutput)
+
+                 */
+                //console.log(part)
             }
         });
     })
