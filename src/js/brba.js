@@ -60,10 +60,7 @@ class BrBa {
                     const symbol = currentElement.ChemicalSymbol;
                     foundUnique = true;
 
-                    for (let i = 0, matchedElementsLength = matchedElements.length; i < matchedElementsLength; i++) {
-                        foundUnique = foundUnique && matchedElements[i].ChemicalSymbol !== symbol
-                    }
-
+                    matchedElements.forEach(({ChemicalSymbol}) => foundUnique &= ChemicalSymbol !== symbol);
                     foundElements.push(currentElement);
                 }
             }
