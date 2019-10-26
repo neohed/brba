@@ -7,12 +7,12 @@ class Element {
     }
 }
 
-const createElementTemplate = (element) => `
-        <div class="element">
-            <h6 class="align-left">${element.AtomicNumber}</h6>
-            <h1>${element.ChemicalSymbol}</h1>
-            <h6>${element.Name}</h6>
-            <h6>${element.AtomicMass}</h6>
+const createElementTemplate = ({AtomicNumber, ChemicalSymbol, Name, AtomicMass}) => `
+        <div class="element ${ChemicalSymbol.length === 2 ? 'wider' : ''}">
+            <h6 class="align-left">${AtomicNumber}</h6>
+            <h1>${ChemicalSymbol}</h1>
+            <h6>${Name}</h6>
+            <h6>${AtomicMass}</h6>
         </div>
 `;
 

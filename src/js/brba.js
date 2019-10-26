@@ -20,8 +20,9 @@ class BrBa {
         const foundElements = [];
         const matchedElements = [];
         const htmlFragments = [];
+        const aNames = names.trim().split(' ');
 
-        names.trim().split(' ').forEach(name => {
+        aNames.forEach((name, i) => {
             const currentName = name.toLowerCase();
             let elementsIndex = this.elements.length;
             let foundUnique = false;
@@ -55,6 +56,10 @@ class BrBa {
                 }
             } else {
                 htmlFragments.push(name)
+            }
+
+            if (i < aNames.length - 1) {
+                htmlFragments.push(null)
             }
         });
 

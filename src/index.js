@@ -106,7 +106,9 @@ function init() {
         const items = brba.breakBad(value);
         output.innerHTML = '';
         items.forEach(item => {
-            if (typeof item === 'string') {
+            if (item === null) {
+                output.innerHTML += '<span class="spacer" />'
+            } else if (typeof item === 'string') {
                 output.innerHTML += createTextTemplate(item)
             } else {
                 output.innerHTML += createElementTemplate(item, output)
