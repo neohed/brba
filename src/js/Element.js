@@ -5,18 +5,16 @@ class Element {
         this.Name = name;
         this.ChemicalSymbol = chemicalSymbol;
     }
+
+    getTemplate = () =>
+        `<div class="element ${this.ChemicalSymbol.length === 2 ? 'wider' : ''}">
+            <h6 class="align-left">${this.AtomicNumber}</h6>
+            <h1>${this.ChemicalSymbol}</h1>
+            <h6>${this.Name}</h6>
+            <h6>${this.AtomicMass}</h6>
+        </div>`
 }
 
-const createElementTemplate = ({AtomicNumber, ChemicalSymbol, Name, AtomicMass}) => `
-        <div class="element ${ChemicalSymbol.length === 2 ? 'wider' : ''}">
-            <h6 class="align-left">${AtomicNumber}</h6>
-            <h1>${ChemicalSymbol}</h1>
-            <h6>${Name}</h6>
-            <h6>${AtomicMass}</h6>
-        </div>
-`;
-
 export {
-    Element,
-    createElementTemplate
+    Element
 }

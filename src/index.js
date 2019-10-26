@@ -5,7 +5,6 @@ import {generateSineWaveValues} from './js/utility'
 import {Wind} from "./js/Wind";
 import {curve} from './js/lib/curve_func'
 import {BrBa} from './js/BrBa'
-import {createElementTemplate} from './js/Element'
 import './css/brba.css'
 
 // Globals
@@ -111,7 +110,7 @@ function init() {
             } else if (typeof item === 'string') {
                 output.innerHTML += createTextTemplate(item)
             } else {
-                output.innerHTML += createElementTemplate(item, output)
+                output.innerHTML += item.getTemplate()
             }
         });
     };
