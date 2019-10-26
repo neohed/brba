@@ -27,10 +27,5 @@
     "webpack-cli": "^3.3.9",
     "webpack-dev-server": "^3.8.2"
   },
-  "dependencies": {
-    "@babel/preset-react": "^7.6.3",
-    "eslint-plugin-react": "^7.16.0",
-    "react": "^16.11.0",
-    "react-dom": "^16.11.0"
-  }
+  "dependencies": {}
 }

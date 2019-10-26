@@ -7,8 +7,7 @@
     "es6": true
   },
   "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended"
+    "eslint:recommended"
   ],
   "rules": {
     "max-len": [
@@ -19,9 +18,6 @@
         "ignoreComments": true
       }
     ],
-    "react/prop-types": [
-      2
-    ],
     "no-console": "warn",
     "strict": [
       "error",
@@ -31,17 +27,6 @@
     "no-unused-vars": "warn"
   },
   "settings": {
-    "react": {
-      "createClass": "createReactClass",
-      // Regex for Component Factory to use,
-      // default to "createReactClass"
-      "pragma": "React",
-      // Pragma to use, default to "React"
-      "version": "16.7.0-alpha",
-      // React version, default to the latest React stable release
-      "flowVersion": "0.53"
-      // Flow version
-    },
     "propWrapperFunctions": [
       "forbidExtraProps"
     ]
