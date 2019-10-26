@@ -1,0 +1,54 @@
+import {ParticleSystem} from "./ParticleSystem";
+import {Vector} from "./Vector";
+import {generateSineWaveValues} from "./utility";
+import {Wind} from "./Wind";
+import {curve} from "./lib/curve_func";
+import {ColorRGB} from "./ColorRGB";
+
+const smokeColor = new ColorRGB('#E0D85C'); //F2E98A
+const backgroundColor = new ColorRGB('#1B2F15');
+
+function createEffects() {
+    const sineValues = generateSineWaveValues(2);
+    return [
+        new Wind(sineValues, new Vector(-.2, -1), 70, .33),
+        new Wind(sineValues, new Vector(-1, -.5), 30, .15, 30),
+        new Wind(sineValues, new Vector(-1, 1), 15, .01, 45)
+    ]
+}
+
+const renderCurve = (ctx) => (points, age) => {
+    ctx.beginPath();
+    const splines = curve(ctx, points, 1, 30, true);
+    ctx.moveTo(splines[0], splines[1]);
+    for (let i = 2, length = splines.length; i < length; i += 2) {
+        const x = Math.floor(splines[i]);
+        const y = Math.floor(splines[i + 1]);
+        ctx.lineTo(x, y)
+    }
+    ctx.lineWidth = Math.floor(12 * age) + 6;
+    ctx.strokeStyle = smokeColor.interpolate(backgroundColor, age).toHex();
+    ctx.stroke()
+};
+
+const createSystem = (ctx, canvasWidth, canvasHeight) => {
+    console.log('createSystem');
+    console.log({canvasWidth, canvasHeight});
+
+    return new ParticleSystem(
+        195,
+        .3,
+        new Vector(canvasWidth + 70, canvasHeight * .67),
+        260,
+        2,
+        .009,
+        .01,
+        createEffects(),
+        14,
+        .14,
+        () => null, // /dev/null the particles, they're only "scaffolding"
+        renderCurve(ctx)
+    )
+};
+
+export default createSystem;
