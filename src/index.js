@@ -120,4 +120,3 @@ function init() {
 
 window.addEventListener('resize', onResize);
 window.addEventListener('load', init);
-

@@ -6,7 +6,9 @@
 Bugs:
 * Prefer matches at start of string, e.g. neohed - neod, not helium match
 * Center output
-* Improve spacing between words, especially symbols. 
+* Increase size of text input
+* Put text into querystring and read from there
+* Add social media links 
 
 Breaking Bad Theme
 * https://www.youtube.com/watch?v=F1HNuAE9WdU
