@@ -8,7 +8,6 @@ import {breakBad} from './js/brba'
 import './css/brba.css'
 
 // Globals
-const $ = window.$;
 const textInput = document.getElementById('textInput');
 const output = document.getElementById('output');
 const c = document.getElementById('surface');
