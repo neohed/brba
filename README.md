@@ -2,6 +2,12 @@
 
 #### Resources
 
+
+Bugs:
+* Prefer matches at start of string, e.g. neohed - neod, not helium match
+* Center output
+* Improve spacing between words, especially symbols. 
+
 Breaking Bad Theme
 * https://www.youtube.com/watch?v=F1HNuAE9WdU
 

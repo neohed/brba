@@ -5,6 +5,7 @@ import {generateSineWaveValues} from './js/utility'
 import {Wind} from "./js/Wind";
 import {curve} from './js/lib/curve_func'
 import {BrBa} from './js/BrBa'
+import {createElementTemplate} from './js/Element'
 import './css/brba.css'
 
 // Globals
@@ -14,7 +15,7 @@ const c = document.getElementById('surface');
 const ctx = c.getContext('2d');
 const canvasLeft = 0, canvasTop = 0;
 let canvasRight, canvasBottom;
-const bb = new BrBa();
+const brba = new BrBa();
 
 let particleSystem;
 const smokeColor = new ColorRGB('#E0D85C'); //F2E98A
@@ -91,11 +92,30 @@ function onResize() {
     createSystem()
 }
 
+const createTextTemplate = (text) => `
+        <div class="text">
+            <h1>${text}</h1>
+        </div>
+`;
+
 function init() {
     resizeCanvas();
     createSystem();
+    textInput.onkeyup = ({target}) => {
+        const {value} = target;
+        const items = brba.breakBad(value);
+        output.innerHTML = '';
+        items.forEach(item => {
+            if (typeof item === 'string') {
+                output.innerHTML += createTextTemplate(item)
+            } else {
+                output.innerHTML += createElementTemplate(item, output)
+            }
+        });
+    };
     window.requestAnimationFrame(animate)
 }
 
 window.addEventListener('resize', onResize);
-init();
+window.addEventListener('load', init);
+

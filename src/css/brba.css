@@ -26,24 +26,37 @@
 }
 #output {
     position: absolute;
+    vertical-align: middle;
+    display: flex;
     z-index: 101;
     color: white;
     font-size: 2em;
 }
 .element {
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: relative;
+    bottom: 0;
     color: white;
     border: 1px solid white;
     width: 80px;
+    padding: 2px;
+    margin: 0 12px 0 0
 }
 .element, h1 {
     font-weight: bolder;
 }
-.element, h1, h5, h6 {
+.element > h6 {
+    font-size: 0.35em;
+}
+.element > h1, h6 {
     text-align: center;
     margin: 0;
+}
+.text {
+    min-width: 17px;
+}
+.text > h1 {
+    padding: 28px 0 0 0;
+    margin: 0 12px 0 0;
 }
 .align-left {
     text-align: left;

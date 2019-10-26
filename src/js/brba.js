@@ -43,8 +43,16 @@ class BrBa {
             if (foundElements.length > 0) {
                 const foundElement = foundElements.pop();
                 matchedElements.push(foundElement);
-                const aFragments = name.split(foundElement.ChemicalSymbol.toLowerCase());
-                htmlFragments.push(aFragments[0], foundElement, aFragments[1])
+                const {ChemicalSymbol} = foundElement;
+                const symbolLength = ChemicalSymbol.length;
+                const i = name.search(new RegExp(ChemicalSymbol, 'i'));
+                if (i > 0) {
+                    htmlFragments.push(name.slice(0, i));
+                }
+                htmlFragments.push(foundElement);
+                if (name.length > i + symbolLength) {
+                    htmlFragments.push(name.slice(i + symbolLength))
+                }
             } else {
                 htmlFragments.push(name)
             }
