@@ -5,6 +5,7 @@ import {generateSineWaveValues} from './js/utility'
 import {Wind} from "./js/Wind";
 import {curve} from './js/lib/curve_func'
 import {BrBa} from './js/BrBa'
+import {parseKeys, replaceKey} from "./js/querystring";
 import './css/brba.css'
 
 // Globals
@@ -80,9 +81,9 @@ function resizeCanvas() {
     canvasRight = c.width = width;
     canvasBottom = c.height = height;
     output.style.left = (canvasRight - 180) / 2 + 'px';
-    output.style.top = canvasBottom / 2 - 8 + 'px';
-    textInput.style.left = (canvasRight - 180) / 2 + 'px';
-    textInput.style.top = canvasBottom - 32 + 'px'
+    output.style.top = canvasBottom / 2 - 18 + 'px';
+    textInput.style.left = (canvasRight - 280) / 2 + 'px';
+    textInput.style.top = canvasBottom - 64 + 'px'
 }
 
 function onResize() {
@@ -96,23 +97,31 @@ const createTextTemplate = (text) => `
     </div>
 `;
 
+function updateOutput(value) {
+    const items = brba.breakBad(value);
+    output.innerHTML = '';
+    output.style.left = canvasRight / 2 - (value.length * 24) + 'px';
+    items.forEach(item => {
+        if (item === null) {
+            output.innerHTML += '<span class="spacer" />'
+        } else if (typeof item === 'string') {
+            output.innerHTML += createTextTemplate(item)
+        } else {
+            output.innerHTML += item.getTemplate()
+        }
+    });
+}
+
 function init() {
+    const urlParams = parseKeys();
+    if (urlParams.has('txt')) {
+        const value = urlParams.get('txt');
+        textInput.value = value;
+        updateOutput(value)
+    }
     resizeCanvas();
     createSystem();
-    textInput.onkeyup = ({target}) => {
-        const {value} = target;
-        const items = brba.breakBad(value);
-        output.innerHTML = '';
-        items.forEach(item => {
-            if (item === null) {
-                output.innerHTML += '<span class="spacer" />'
-            } else if (typeof item === 'string') {
-                output.innerHTML += createTextTemplate(item)
-            } else {
-                output.innerHTML += item.getTemplate()
-            }
-        });
-    };
+    textInput.onkeyup = ({target}) => updateOutput(target.value);
     window.requestAnimationFrame(animate)
 }
 
