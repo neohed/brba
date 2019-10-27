@@ -8,6 +8,7 @@
 }
 #surface {
     background-color: #1B2F15;
+    margin: 18px;
     filter: blur(18px)
 }
 #app {
@@ -24,10 +25,13 @@
     outline-color: #E0D85C;
     color: #E0D85C;
     font-size: 18px;
+    opacity: 0.3
+}
+#textInput:hover {
+    opacity: 1
 }
 #output {
     position: absolute;
-    vertical-align: middle;
     display: flex;
     z-index: 101;
     color: white;
@@ -43,7 +47,7 @@
     margin: 0 8px 0 0
 }
 .wider {
-    width: 104px
+    width: 114px
 }
 .element, h1 {
     font-weight: bolder;
@@ -59,7 +63,7 @@
     min-width: 17px;
 }
 .text > h1 {
-    padding: 18px 0 0 0;
+    padding: 16px 0 0 0;
     margin: 0 8px 0 0;
 }
 .align-left {
