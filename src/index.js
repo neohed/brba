@@ -91,9 +91,9 @@ function onResize() {
 }
 
 const createTextTemplate = (text) => `
-        <div class="text">
-            <h1>${text}</h1>
-        </div>
+    <div class="text">
+        <h1>${text}</h1>
+    </div>
 `;
 
 function init() {
