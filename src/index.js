@@ -113,13 +113,13 @@ function updateOutput(value) {
 }
 
 function init() {
+    resizeCanvas();
     const urlParams = parseKeys();
     if (urlParams.has('txt')) {
         const value = urlParams.get('txt');
         textInput.value = value;
         updateOutput(value)
     }
-    resizeCanvas();
     createSystem();
     textInput.onkeyup = ({target}) => updateOutput(target.value);
     window.requestAnimationFrame(animate)
