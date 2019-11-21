@@ -2,6 +2,10 @@
 
 Particle System translated from "Game Programming All In One" de Sousa 2002 
 
+## To run locally
+
+``npm run dev``
+
 ## Inspired by: Breaking Bad Theme
 * https://www.youtube.com/watch?v=F1HNuAE9WdU
 
