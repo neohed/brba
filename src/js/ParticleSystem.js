@@ -3,6 +3,8 @@ import {Spline} from "./Spline";
 import {toRadians} from "./utility";
 import {Vector} from "./Vector";
 
+const oldestFirst = (a, b) => b.age - a.age;
+
 class ParticleSystem {
     particles;
     maxParticles;
@@ -115,7 +117,7 @@ class ParticleSystem {
 
         const {x, y} = this.v_position;
 
-        this.splines.sort((a, b) => b.age - a.age).forEach(spline => {
+        this.splines.sort(oldestFirst).forEach(spline => {
             if (spline.isAlive()) {
                 spline.render(x, y)
             }
