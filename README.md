@@ -2,6 +2,10 @@
 
 Particle System translated from "Game Programming All In One" de Sousa 2002 
 
+## Todo
+
+* background static blur effect (black & green): https://zurb.com/playground/image-blur-texture
+
 ## To run locally
 
 ``npm run start``
