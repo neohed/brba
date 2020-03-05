@@ -10,9 +10,6 @@ const parseKeys = () => {
     }, new Map())
 };
 
-const replaceKey = (url, key, value) => url.replace(new RegExp('([?&]' + key + ')=[^?&]+'), '$1=' + encodeURIComponent(value));
-
 export {
     parseKeys,
-    replaceKey
 }

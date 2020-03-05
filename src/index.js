@@ -5,7 +5,7 @@ import {generateSineWaveValues} from './js/utility'
 import {Wind} from "./js/Wind";
 import {curve} from './js/lib/curve_func'
 import {BrBa} from './js/BrBa'
-import {parseKeys, replaceKey} from "./js/querystring";
+import {parseKeys} from "./js/querystring";
 import './css/brba.css'
 
 // Globals
