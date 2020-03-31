@@ -40,9 +40,8 @@ function renderCurve(points, age) {
         const y = floor(splines[i + 1]);
         ctx.lineTo(x, y)
     }
-    ctx.lineWidth = floor(48 * age);// + 6;
+    ctx.lineWidth = floor(48 * age);
     ctx.strokeStyle = smokeColor.interpolate(backgroundColor, age).toHex();
-    ctx.className = 'deep-line';
     ctx.stroke()
 }
 
