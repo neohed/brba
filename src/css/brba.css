@@ -9,7 +9,7 @@
 #surface {
     background-color: #1B2F15;
     margin: 18px;
-    filter: blur(18px)
+    filter: blur(23px)
 }
 #app {
     position: absolute;

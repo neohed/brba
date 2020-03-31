@@ -22,7 +22,7 @@ class Particle {
     }
 
     create = () => {
-        this.v_position = new Vector(0, 0);
+        this.v_position = new Vector(0,Math.random() * 300 - 150);
         this.age = 0;
         this.particleSystem.registerLife(1);
         this.mass = Math.random();
@@ -55,10 +55,10 @@ class Particle {
         this.v_position.addTo(v_scaledEffects);
 
         const [x, y] = this.particleSystem.getCoords();
-        const X = this.v_position.x + x;
-        const Y = this.v_position.y + y;
+        const tx = this.v_position.x + x;
+        const ty = this.v_position.y + y;
 
-        this.doRender(X, Y, this.age)
+        this.doRender(tx, ty, this.age)
     };
 
     isAlive = () => this.age < 1;

@@ -11,8 +11,15 @@ const generateSineWaveValues = (step) => {
     return v
 };
 
+function getWindowSize() {
+    const {innerWidth, innerHeight} = window;
+
+    return [innerWidth, innerHeight]
+}
+
 export {
     toRadians,
     randomInRangeFloat,
-    generateSineWaveValues
+    generateSineWaveValues,
+    getWindowSize,
 }

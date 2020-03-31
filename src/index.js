@@ -9,10 +9,11 @@ import {parseKeys} from "./js/querystring";
 import './css/brba.css'
 
 // Globals
+const floor = Math.floor;
 const textInput = document.getElementById('textInput');
 const output = document.getElementById('output');
-const c = document.getElementById('surface');
-const ctx = c.getContext('2d');
+const canvas = document.getElementById('surface');
+const ctx = canvas.getContext('2d');
 const canvasLeft = 0, canvasTop = 0;
 let canvasRight, canvasBottom;
 const brba = new BrBa();
@@ -32,15 +33,16 @@ function createEffects() {
 
 function renderCurve(points, age) {
     ctx.beginPath();
-    const splines = curve(ctx, points, 1, 30, true);
+    const splines = curve(ctx, points, 1, 32, true);
     ctx.moveTo(splines[0], splines[1]);
     for (let i = 2, length = splines.length; i < length; i += 2) {
-        const x = Math.floor(splines[i]);
-        const y = Math.floor(splines[i + 1]);
+        const x = floor(splines[i]);
+        const y = floor(splines[i + 1]);
         ctx.lineTo(x, y)
     }
-    ctx.lineWidth = Math.floor(12 * age) + 6;
+    ctx.lineWidth = floor(48 * age);// + 6;
     ctx.strokeStyle = smokeColor.interpolate(backgroundColor, age).toHex();
+    ctx.className = 'deep-line';
     ctx.stroke()
 }
 
@@ -51,13 +53,13 @@ function createSystem() {
         new Vector(canvasRight + 70, canvasBottom * .67),
         260,
         2,
-        .009,
-        .01,
+        .006,
+        .008,
         createEffects(),
-        14,
+        16,
         .14,
         () => null, // /dev/null the particles, they're only "scaffolding"
-        renderCurve
+        renderCurve,
     )
 }
 
@@ -78,11 +80,12 @@ function getWindowSize() {
 
 function resizeCanvas() {
     const [width, height] = getWindowSize();
-    canvasRight = c.width = width;
-    canvasBottom = c.height = height;
-    output.style.left = (canvasRight - 180) / 2 + 'px';
+
+    canvasRight = canvas.width = width;
+    canvasBottom = canvas.height = height;
+    output.style.left = floor((canvasRight - 180) / 2) + 'px';
     output.style.top = canvasBottom / 2 - 18 + 'px';
-    textInput.style.left = (canvasRight - 280) / 2 + 'px';
+    textInput.style.left = floor((canvasRight - 280) / 2) + 'px';
     textInput.style.top = canvasBottom - 64 + 'px'
 }
 
@@ -100,7 +103,7 @@ const createTextTemplate = (text) => `
 function updateOutput(value) {
     const items = brba.breakBad(value);
     output.innerHTML = '';
-    output.style.left = canvasRight / 2 - (value.length * 24) + 'px';
+    output.style.left = floor(canvasRight / 2 - (value.length * 24)) + 'px';
     items.forEach(item => {
         if (item === null) {
             output.innerHTML += '<span class="spacer" />'

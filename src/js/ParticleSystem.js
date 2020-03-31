@@ -37,7 +37,7 @@ class ParticleSystem {
         maxSplines,
         splinesPerSecond,
         render,
-        renderCurve
+        renderCurve,
     ) {
         this.direction = toRadians(direction);
         this.dispersion = dispersion;
@@ -129,7 +129,10 @@ class ParticleSystem {
     getCoords = () => {
         const {x, y} = this.v_position;
 
-        return [x, y]
+        return [
+            x,
+            y
+        ]
     }
 }
 
