@@ -83,7 +83,7 @@ function resizeCanvas() {
     canvasRight = canvas.width = width;
     canvasBottom = canvas.height = height;
     output.style.left = floor((canvasRight - 180) / 2) + 'px';
-    output.style.top = canvasBottom / 2 - 18 + 'px';
+    output.style.top = floor(canvasBottom / 2) - 18 + 'px';
     textInput.style.left = floor((canvasRight - 280) / 2) + 'px';
     textInput.style.top = canvasBottom - 64 + 'px'
 }
