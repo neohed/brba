@@ -1,15 +1,20 @@
-# 🚀 Welcome to your new awesome project!
+# brba
 
-This project has been created using **webpack-cli**, you can now run
+Particle System translated from "Game Programming All In One" de Sousa 2002
 
-```
-npm run build
-```
+## Todo
 
-or
+* background static blur effect (black & green): https://zurb.com/playground/image-blur-texture
 
-```
-yarn build
-```
+## To run locally
 
-to bundle your application
+``npm run start``
+
+## Inspired by: Breaking Bad Theme
+* https://www.youtube.com/watch?v=F1HNuAE9WdU
+
+## Demo
+* https://www.neohed.com/_brba/index.html
+
+## Blog
+* https://www.neohed.com/brba
