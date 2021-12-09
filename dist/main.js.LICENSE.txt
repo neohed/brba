@@ -1,0 +1,5 @@
+/*!	Curve function for canvas 2.3.8
+ *	(c) Epistemex 2013-2018
+ *	www.epistemex.com
+ *	License: MIT
+ */

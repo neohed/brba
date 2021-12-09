@@ -1,8 +1,11 @@
 {
+  "plugins": ["@babel/syntax-dynamic-import"],
   "presets": [
-    "@babel/preset-env"
-  ],
-  "plugins": [
-    "@babel/plugin-proposal-class-properties"
+    [
+      "@babel/preset-env",
+      {
+        "modules": false
+      }
+    ]
   ]
 }
