@@ -1,10 +1,6 @@
 # brba
 
-Particle System translated from "Game Programming All In One" de Sousa 2002
-
-## Todo
-
-* background static blur effect (black & green): https://zurb.com/playground/image-blur-texture
+Particle System inspired by "Game Programming All In One" de Sousa 2002
 
 ## To run locally
 
