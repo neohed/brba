@@ -4,6 +4,8 @@ My attempt to replicate the smoke effect from the Breaking Bad credits using a p
 
 Particle System inspired by "Game Programming All In One" de Sousa 2002
 
+![Breaking Bad Demo](./BrBa.jpg "Breaking Bad Demo")
+
 ## Demo
 * https://www.neohed.com/_brba/index.html?txt=Bryan%20Cranston
 
