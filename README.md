@@ -6,9 +6,6 @@ Particle System inspired by "Game Programming All In One" de Sousa 2002
 
 ![Breaking Bad Demo](./BrBa.jpg "Breaking Bad Demo")
 
-## Demo
-* https://www.neohed.com/_brba/index.html?txt=Bryan%20Cranston
-
 ## To run locally
 
 ``npm run start``
